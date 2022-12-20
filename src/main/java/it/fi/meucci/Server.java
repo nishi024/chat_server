@@ -44,13 +44,13 @@ public class Server {
 				
 				t.start();
 			}
-			// try to stop the server
+			// rova a chiudere il server
 			try {
 				serverSocket.close();
 				for(int i = 0; i < al.size(); ++i) {
 					ClientThread tc = al.get(i);
 					try {
-					// close all data streams and socket
+					// chiude datastream e socket
 					tc.sInput.close();
 					tc.sOutput.close();
 					tc.socket.close();
@@ -69,7 +69,7 @@ public class Server {
 		}
 	}
 	
-	// to stop the server
+	// per fermare il server
 	protected void stop() {
 		keepGoing = false;
 		try {
@@ -79,18 +79,18 @@ public class Server {
 		}
 	}
 	
-	// Display an event to the console
+	// Display evento al  console
 	private void display(String msg) {
 		String time = sdf.format(new Date()) + " " + msg;
 		System.out.println(time);
 	}
 	
-	// to broadcast a message to all Clients
+	// un messaggio broadcast a tutti client
 	private synchronized boolean broadcast(String message) {
-		// add timestamp to the message
+		// aggiugge timestamp al messaggio
 		String time = sdf.format(new Date());
 		
-		// to check if message is private i.e. client to client message
+		// controlla se il messaggio privato
 		String[] w = message.split(" ",3);
 		
 		boolean isPrivate = false;
@@ -98,7 +98,7 @@ public class Server {
 			isPrivate=true;
 		
 		
-		// if private message, send message to mentioned username only
+		// se il messaggio è in privato, lo manda solo all'utente menzionato
 		if(isPrivate==true)
 		{
 			String tocheck=w[1].substring(1, w[1].length());
